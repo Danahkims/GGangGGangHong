@@ -57,7 +57,7 @@ gameArea.addEventListener("click", async () => {
   const currentDirector = directors[currentDirectorIndex];
 
   person.src = currentDirector.hit;
-  hammer.src = "hammer-hit.png";
+  hammer.src = "hammer-hit.PNG";
 
   gameArea.classList.remove("hit");
   void gameArea.offsetWidth;
@@ -76,7 +76,7 @@ gameArea.addEventListener("click", async () => {
 
   setTimeout(() => {
     person.src = currentDirector.normal;
-    hammer.src = "hammer.png";
+    hammer.src = "hammer.PNG";
     gameArea.classList.remove("hit");
     isHitting = false;
   }, 160);
