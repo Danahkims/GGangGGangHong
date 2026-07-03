@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>유명감독 때리는 게임</title>
+  <link rel="stylesheet" href="style.css" />느
+</head>
+<body>
+  <div id="topBar">
+    <div id="counter">
+      유명감독이 맞은 횟수: <span id="count">0</span>
+    </div>
+    <button id="changeBtn">유명감독 사진 바꾸기</button>
+  </div>
+  <main>
+    <section id="gameArea">
+      <img id="person" src="person1.png" alt="유명감독 사진" />
+      <img id="hammer" src="hammer.png" alt="망치" />
+    </section>
+  </main>
+  <audio id="hitSound" src="hit.mp3" preload="auto"></audio>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
