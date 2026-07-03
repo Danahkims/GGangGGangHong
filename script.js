@@ -7,15 +7,14 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 
-// 여기를 본인 Firebase 설정값으로 바꾸세요.
 const firebaseConfig = {
-  apiKey: "여기에_API_KEY",
-  authDomain: "여기에_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://여기에_PROJECT_ID-default-rtdb.firebaseio.com",
-  projectId: "여기에_PROJECT_ID",
-  storageBucket: "여기에_PROJECT_ID.appspot.com",
-  messagingSenderId: "여기에_SENDER_ID",
-  appId: "여기에_APP_ID"
+  apiKey: "AIzaSyD3-yjV9GTUSTiuuj9RA8MvvqbDk9P62Fw",
+  authDomain: "famous-director-hammer.firebaseapp.com",
+  databaseURL: "https://famous-director-hammer-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "famous-director-hammer",
+  storageBucket: "famous-director-hammer.firebasestorage.app",
+  messagingSenderId: "204291574432",
+  appId: "1:204291574432:web:e460262f6e48f76f30d7c5"
 };
 
 const app = initializeApp(firebaseConfig);
