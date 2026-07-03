@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+#topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+#counter {
+  font-size: 22px;
+  font-weight: bold;
+  color: #111;
+}
+
+#count {
+  font-size: 26px;
+}
+
+#changeBtn {
+  padding: 10px 16px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#changeBtn:active {
+  transform: scale(0.96);
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameArea {
+  position: relative;
+  width: min(82vw, 500px);
+  height: min(82vw, 500px);
+  cursor: pointer;
+}
+
+#person {
+  position: absolute;
+  width: 76%;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+#hammer {
+  position: absolute;
+  width: 50%;
+  right: -8%;
+  top: -2%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#gameArea.hit #person {
+  animation: personShake 0.16s ease-in-out;
+}
+
+#gameArea.hit #hammer {
+  animation: hammerHit 0.16s ease-in-out;
+}
+
+@keyframes personShake {
+  0% { transform: translate(-50%, -50%); }
+  25% { transform: translate(-53%, -50%) rotate(-2deg); }
+  50% { transform: translate(-47%, -50%) rotate(2deg); }
+  75% { transform: translate(-52%, -50%) rotate(-1deg); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+@keyframes hammerHit {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-22px, 42px) rotate(-8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@media (max-width: 600px) {
+  #topBar {
+    padding: 14px 12px;
+  }
+
+  #counter {
+    font-size: 15px;
+  }
+
+  #count {
+    font-size: 18px;
+  }
+
+  #changeBtn {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+
+  #gameArea {
+    width: 92vw;
+    height: 92vw;
+  }
+
+  #person {
+    width: 82%;
+  }
+
+  #hammer {
+    width: 58%;
+    right: -12%;
+    top: -4%;
+  }
+}
