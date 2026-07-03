@@ -50,30 +50,24 @@ onValue(countRef, (snapshot) => {
 
 changeBtn.addEventListener("click", (event) => {
   event.stopPropagation();
-
-  if (isHitting) return;
-
   currentDirectorIndex = (currentDirectorIndex + 1) % directors.length;
   person.src = directors[currentDirectorIndex].normal;
 });
 
 gameArea.addEventListener("click", async () => {
-  if (isHitting) return;
-
-  isHitting = true;
-
   const currentDirector = directors[currentDirectorIndex];
-
+  // 맞는 순간 이미지로 변경
   person.src = currentDirector.hit;
   hammer.src = "hammer-hit.PNG";
-
+  // 애니메이션 재시작
   gameArea.classList.remove("hit");
   void gameArea.offsetWidth;
   gameArea.classList.add("hit");
-
-  hitSound.currentTime = 0;
-  hitSound.play().catch(() => {});
-
+  // 효과음 겹쳐 재생
+  const sound = new Audio("hit.mp3");
+  sound.volume = 1;
+  sound.play().catch(() => {});
+  // Firebase 전체 누적 횟수 +1
   try {
     await runTransaction(countRef, (currentCount) => {
       return (currentCount || 0) + 1;
@@ -81,15 +75,15 @@ gameArea.addEventListener("click", async () => {
   } catch (error) {
     console.error("카운트 증가 실패:", error);
   }
-
-  setTimeout(() => {
-    person.src = currentDirector.normal;
+  // 연타해도 마지막 클릭 기준으로 원래 이미지 복귀
+  clearTimeout(hitResetTimer);
+  hitResetTimer = setTimeout(() => {
+    person.src = directors[currentDirectorIndex].normal;
     hammer.src = "hammer.PNG";
     gameArea.classList.remove("hit");
-    isHitting = false;
   }, 160);
-});
 
+});
 let lastTouchTime = 0;
 document.addEventListener(
   "touchend",
