@@ -89,3 +89,16 @@ gameArea.addEventListener("click", async () => {
     isHitting = false;
   }, 160);
 });
+
+let lastTouchTime = 0;
+document.addEventListener(
+  "touchend",
+  (event) => {
+    const now = Date.now();
+    if (now - lastTouchTime <= 300) {
+      event.preventDefault();
+    }
+    lastTouchTime = now;
+  },
+  { passive: false }
+);
