@@ -41,7 +41,7 @@ const changeBtn = document.getElementById("changeBtn");
 const hitSound = document.getElementById("hitSound");
 
 let currentDirectorIndex = 0;
-let isHitting = false;
+let hitResetTimer = null;
 
 onValue(countRef, (snapshot) => {
   const count = snapshot.val() ?? 0;
