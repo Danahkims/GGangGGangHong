@@ -42,6 +42,21 @@ const hitSound = document.getElementById("hitSound");
 
 let currentDirectorIndex = 0;
 let hitResetTimer = null;
+let lastFirebaseHitTime = 0;
+const soundPool = [];
+let soundIndex = 0;
+for (let i = 0; i < 8; i++) {
+  const audio = new Audio("hit.mp3");
+  audio.preload = "auto";
+  audio.volume = 1;
+  soundPool.push(audio);
+}
+function playHitSound() {
+  const sound = soundPool[soundIndex];
+  soundIndex = (soundIndex + 1) % soundPool.length;
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
+}
 
 onValue(countRef, (snapshot) => {
   const count = snapshot.val() ?? 0;
@@ -54,36 +69,38 @@ changeBtn.addEventListener("click", (event) => {
   person.src = directors[currentDirectorIndex].normal;
 });
 
-gameArea.addEventListener("click", async () => {
+gameArea.addEventListener("pointerdown", async (event) => {
+  event.preventDefault();
   const currentDirector = directors[currentDirectorIndex];
-  // 맞는 순간 이미지로 변경
+  // 이미지와 망치 모션은 클릭할 때마다 즉시 반응
   person.src = currentDirector.hit;
   hammer.src = "hammer-hit.PNG";
-  // 애니메이션 재시작
   gameArea.classList.remove("hit");
   void gameArea.offsetWidth;
   gameArea.classList.add("hit");
-  // 효과음 겹쳐 재생
-  const sound = new Audio("hit.mp3");
-  sound.volume = 1;
-  sound.play().catch(() => {});
-  // Firebase 전체 누적 횟수 +1
-  try {
-    await runTransaction(countRef, (currentCount) => {
-      return (currentCount || 0) + 1;
-    });
-  } catch (error) {
-    console.error("카운트 증가 실패:", error);
+  // 효과음은 겹쳐서 재생
+  playHitSound();
+  // 너무 빠른 자동 클릭은 Firebase 기록만 제한
+  const now = Date.now();
+  if (now - lastFirebaseHitTime >= 80) {
+    lastFirebaseHitTime = now;
+    try {
+      await runTransaction(countRef, (currentCount) => {
+        return (currentCount || 0) + 1;
+      });
+    } catch (error) {
+      console.error("카운트 증가 실패:", error);
+    }
   }
-  // 연타해도 마지막 클릭 기준으로 원래 이미지 복귀
+  // 마지막 클릭 기준으로 원래 이미지 복귀
   clearTimeout(hitResetTimer);
   hitResetTimer = setTimeout(() => {
     person.src = directors[currentDirectorIndex].normal;
     hammer.src = "hammer.PNG";
     gameArea.classList.remove("hit");
-  }, 160);
-
+  }, 120);
 });
+
 let lastTouchTime = 0;
 document.addEventListener(
   "touchend",
