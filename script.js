@@ -23,8 +23,8 @@ const db = getDatabase(app);
 const countRef = ref(db, "hitCount");
 
 const directors = [
-  { normal: "person1.png", hit: "person1-hit.png" },
-  { normal: "person2.png", hit: "person2-hit.png" }
+  { normal: "person1.PNG", hit: "person1-hit.PNG" },
+  { normal: "person2.PNG", hit: "person2-hit.PNG" }
 ];
 
 const person = document.getElementById("person");
