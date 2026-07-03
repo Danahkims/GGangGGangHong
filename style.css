@@ -1,3 +1,9 @@
+html,
+body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
 * {
   box-sizing: border-box;
   user-select: none;
@@ -11,6 +17,7 @@ body {
   background: #ffffff;
   font-family: Arial, sans-serif;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
 #topBar {
